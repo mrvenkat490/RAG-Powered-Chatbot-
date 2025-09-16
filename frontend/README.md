@@ -1,70 +1,217 @@
-# Getting Started with Create React App
+📰 RAG-Powered News Chatbot
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack chatbot designed to answer user queries about news articles using a Retrieval-Augmented Generation (RAG) pipeline. It leverages vector embeddings for intelligent retrieval, Redis for session history, and Google Gemini API for AI-powered responses.
 
-## Available Scripts
+This project was developed as an assignment for the Full Stack Developer role at Voosh.
 
-In the project directory, you can run:
+🌟 Features
 
-### `npm start`
+Ask the chatbot questions about news articles.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Stores per-session chat history in Redis.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Reset chat session with one click.
 
-### `npm test`
+Retrieve relevant articles using vector search in Qdrant.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Generate embeddings with Jina Embeddings.
 
-### `npm run build`
+AI-powered responses using Google Gemini API (integration pending).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Fully responsive UI built with React.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Colorful and interactive chat interface.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+🛠️ Tech Stack
+Layer	Technology
+Frontend	React, CSS/SCSS
+Backend	Node.js, Express
+Chat History	Redis Cloud
+Vector DB	Qdrant Cloud
+Embeddings	Jina Embeddings
+AI Responses	Google Gemini API
+Hosting	Render.com / Localhost
+📂 Project Structure
+voosh-assignment/
+│
+├── backend/                    # Node.js + Express backend
+│   ├── server.js               # Main server
+│   ├── ingest.js               # News ingestion script
+│   ├── test-jina.js            # Embeddings test
+│   ├── package.json            # Backend dependencies
+│   └── .env                    # Environment variables
+│
+├── frontend/                   # React frontend
+│   ├── src/
+│   │   ├── App.js
+│   │   ├── App.css
+│   │   ├── index.js
+│   │   └── other React files
+│   ├── public/
+│   ├── package.json
+│   └── README.md
+│
+├── Screenshots/                # Demo screenshots
+└── README.md                   # Project documentation
 
-### `npm run eject`
+⚡ Backend Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Navigate to the backend folder:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+cd backend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Install dependencies:
 
-## Learn More
+npm install
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Create a .env file with your credentials:
 
-### Code Splitting
+REDIS_URL=<your_redis_url>
+QDRANT_URL=<your_qdrant_url>
+QDRANT_API_KEY=<your_qdrant_api_key>
+JINA_API_KEY=<your_jina_api_key>
+GEMINI_API_KEY=<your_gemini_api_key>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+Start the backend server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+node server.js
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+✅ The terminal should display:
 
-### Advanced Configuration
+Backend running on http://localhost:5000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+⚡ Frontend Setup
 
-### Deployment
+Navigate to the frontend folder:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+cd frontend
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Install dependencies:
+
+npm install
+
+
+Start the frontend:
+
+npm start
+
+
+Open your browser at:
+
+http://localhost:3000
+
+💬 Usage
+
+Type a message in the input box.
+
+Hit Send to query the chatbot.
+
+Chatbot replies with AI answers (currently echo responses).
+
+Click Reset to clear session history.
+
+Example test messages:
+
+"Hello, bot!"
+
+"Tell me about AI advancements."
+
+"Global economy updates today."
+
+"Space news."
+
+"Latest technology news."
+
+🔧 Backend Routes
+Route	Method	Description	Request Body
+/chat	POST	Send a user query	{ sessionId, query }
+/history/:sessionId	GET	Fetch session chat history	N/A
+/reset/:sessionId	DELETE	Clear session chat history	N/A
+📰 News Ingestion
+
+Ingest articles using ingest.js.
+
+Articles are converted to embeddings using Jina.
+
+Embeddings stored in Qdrant for vector search.
+
+Sample articles included for testing.
+
+Example articles:
+
+"Tech breakthrough in AI"
+
+"Global economy forecast"
+
+"NASA outer planets mission"
+
+⚡ Redis Cache
+
+Stores chat history per session.
+
+Uses Redis Cloud for in-memory storage.
+
+TTL and caching strategies can be configured for optimization.
+
+🌈 Frontend UI
+
+Displays past messages in chat bubbles.
+
+Colorful UI with gradient headers and messages.
+
+Input box for typing queries.
+
+Buttons for Send and Reset.
+
+Scrolls automatically to show the latest messages.
+
+🖼️ Screenshots
+
+Backend terminal showing server running.
+
+Frontend chat interface.
+
+Sending messages and receiving responses.
+
+Resetting the chat session.
+
+💡 Future Improvements
+
+Replace temporary echo responses with Gemini API answers.
+
+Implement real-time streaming of bot responses.
+
+Persist chat history in SQL database.
+
+Add authentication for multiple users.
+
+Improve frontend with animations, themes, and mobile responsiveness.
+
+Extend news ingestion to dynamic RSS feeds.
+
+📌 Notes
+
+Make sure .env file is not committed to GitHub.
+
+Keep API keys secure.
+
+Use Postman to test backend endpoints before connecting frontend.
+
+Deployment can be done via Render.com or Vercel for full-stack hosting.
+
+📚 References
+
+Jina Embeddings
+
+Qdrant Quickstart
+
+Google AI Studio API
+
+News Ingestion Example
+
+Reuters RSS Feeds
